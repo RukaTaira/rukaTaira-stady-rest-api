@@ -11,7 +11,8 @@
 	<groupId>com.Taira.rest.api</groupId>
 	<artifactId>taira</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
+    <packaging>pom</packaging>
+    <name/>
 	<description/>
 	<url/>
 	<licenses>
@@ -20,7 +21,11 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>rest</module>
+        <module>domain</module>
+    </modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
@@ -61,8 +66,8 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+		<sourceDirectory>rest/src/src/main/kotlin</sourceDirectory>
+		<testSourceDirectory>rest/src/src/test/kotlin</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

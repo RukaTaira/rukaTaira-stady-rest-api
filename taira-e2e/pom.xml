@@ -7,58 +7,59 @@
     <artifactId>taira-e2e</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-<properties>
-    <kotlin.version>2.2.20</kotlin.version>
-    <gauge.java.version>0.12.0</gauge.java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
+    <!-- 1. バージョンやエンコーディングの一括管理 -->
+    <properties>
+        <java.version>21</java.version>
+        <kotlin.version>2.2.20</kotlin.version>
+        <gauge.java.version>0.12.0</gauge.java.version>
+        <gauge.maven.version>1.6.4</gauge.maven.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
 
+    <!-- 2. 使用するライブラリ（依存関係） -->
     <dependencies>
-<!--    ①-->
+        <!-- Gauge Java 実行基盤 -->
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
             <version>${gauge.java.version}</version>
             <scope>test</scope>
         </dependency>
-<!--    ②-->
+
+        <!-- AssertJ（テスト結果の検証用ライブラリ） -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.25.3</version>
             <scope>test</scope>
         </dependency>
-<!--    ③-->
+
+        <!-- Gauge REST APIテスト用ライブラリ -->
         <dependency>
             <groupId>com.uzabase</groupId>
             <artifactId>playtest-gauge-rest</artifactId>
             <version>0.2.9</version>
             <scope>test</scope>
         </dependency>
-<!--    ④-->
+
+        <!-- Kotlin 標準ライブラリ -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
-<!--    ⑤-->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
+    <!-- 3. ビルドプラグイン設定（必須） -->
     <build>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-
         <plugins>
-            <!-- Gauge 実行プラグイン -->
+            <!-- Gauge テストを実行するためのプラグイン -->
             <plugin>
                 <groupId>com.thoughtworks.gauge.maven</groupId>
                 <artifactId>gauge-maven-plugin</artifactId>
-                <version>1.6.3</version>
+                <version>${gauge.maven.version}</version>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -71,11 +72,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Kotlin コンパイルプラグイン -->
+
+            <!-- Kotlin コードをコンパイルするためのプラグイン -->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
+                <configuration>
+                    <jvmTarget>${java.version}</jvmTarget>
+                </configuration>
                 <executions>
                     <execution>
                         <id>test-compile</id>
@@ -83,23 +88,14 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/test/kotlin</source>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <jvmTarget>25</jvmTarget>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version> <!-- 3. バージョンを少し新しくしておくのが無難です -->
-                <configuration>
-                    <source>25</source>
-                    <target>25</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

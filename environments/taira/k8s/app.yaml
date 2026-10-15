@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taira
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taira
+  template:
+    metadata:
+      labels:
+        app: taira
+    spec:
+      containers:
+        - name: taira
+          image: taira
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taira
+spec:
+  selector:
+    app: taira
+  ports:
+    - port: 8080

@@ -1,0 +1,22 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: taira
+build:
+  local:
+    push: false
+  artifacts:
+    - image: taira
+      context: ../..
+      docker:
+        dockerfile: environments/taira/Dockerfile
+manifests:
+  rawYaml:
+    - k8s/app.yaml
+deploy:
+  kubectl: {}
+portForward:
+  - resourceType: service
+    resourceName: taira
+    port: 8080
+    localPort: 8080

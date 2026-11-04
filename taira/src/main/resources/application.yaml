@@ -1,3 +1,5 @@
 spring:
   application:
     name: taira
+server:
+  port: 8082

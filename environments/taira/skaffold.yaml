@@ -5,6 +5,7 @@ metadata:
 build:
   local:
     push: false
+    useBuildkit: true
   artifacts:
     - image: taira
       context: ../..
@@ -19,4 +20,4 @@ portForward:
   - resourceType: service
     resourceName: taira
     port: 8080
-    localPort: 8080
+    localPort: 8888

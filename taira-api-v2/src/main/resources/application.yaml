@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: taira-api-v2

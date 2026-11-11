@@ -1,6 +1,7 @@
 package com.example.taira_api_v2.rest
 
 import com.example.taira_api_v2.domain.User
+import com.example.taira_api_v2.domain.UserId
 import com.example.taira_api_v2.usecase.GetUserDetailUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 class UserResource(
     private val getUserDetailUseCase: GetUserDetailUseCase,
 ) {
-    @GetMapping("/user/{userId}")
-    fun getUser(@PathVariable userId: String): ResponseEntity<User> {
+    @GetMapping("/users/{userId}")
+    fun getUser(@PathVariable userId: UserId): ResponseEntity<User> {
         val userDetail = getUserDetailUseCase.execute(userId)
         return ResponseEntity.ok(userDetail)
     }

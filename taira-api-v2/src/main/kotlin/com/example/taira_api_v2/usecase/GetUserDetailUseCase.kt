@@ -1,6 +1,7 @@
 package com.example.taira_api_v2.usecase
 
 import com.example.taira_api_v2.domain.User
+import com.example.taira_api_v2.domain.UserId
 import com.example.taira_api_v2.port.UserPort
 import org.springframework.stereotype.Component
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component
 class GetUserDetailUseCase(
     private val userPort: UserPort
 ) {
-    fun execute(userId: String): User {
+    fun execute(userId: UserId): User {
         return userPort.findById(userId)
     }
 }

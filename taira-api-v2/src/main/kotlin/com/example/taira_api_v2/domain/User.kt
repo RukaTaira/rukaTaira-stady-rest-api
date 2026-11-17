@@ -1,7 +1,8 @@
 package com.example.taira_api_v2.domain
 
 data class User(
-    val userId: String,
+    val userId: UserId,
     val name: String,
-    val organizationId: String,
+    val companyId: CompanyId,
+    val departmentId: DepartmentId,
 )
